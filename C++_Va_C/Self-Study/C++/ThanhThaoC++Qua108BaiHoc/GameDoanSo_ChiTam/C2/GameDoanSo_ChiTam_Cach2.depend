@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1695642263 source:c:\users\hachi\downloads\code\c++\gamedoanso_chitam\c2\main.cpp
+	<iostream>
+	<stdlib.h>
+	<time.h>
+
