@@ -38,11 +38,12 @@ int main(){
     }
     for (int i=1; i<=m; i++){
         for (int j=1; j<=n; j++){
-            if (A[i][j]==0) continue;
-            for (int k=min(Right[i][j], Down[i][j]); k>=ans; k--){
-                if (Left[i+k-1][j+k-1]>=k && Up[i+k-1][j+k-1]>=k){
-                    ans=max(ans, k);
-                    break;
+            if (A[i][j]==1){
+                for (int k=min(Right[i][j], Down[i][j]); k>=ans; k--){
+                    if (Left[i+k-1][j+k-1]>=k && Up[i+k-1][j+k-1]>=k){
+                        ans=max(ans, k);
+                        break;
+                    }
                 }
             }
         }
