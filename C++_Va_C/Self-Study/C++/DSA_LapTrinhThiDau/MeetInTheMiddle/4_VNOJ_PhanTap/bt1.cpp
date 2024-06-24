@@ -40,6 +40,7 @@ int main(){
             } else if (ans==2*(x+y)-sum) cnt+=tmpcnt;
         //cout<< "Case 1: "<< ans<< " "<< cnt<< " "<< 2*(x+y)-sum<< " "<< tmpcnt<< " "<< min(sum-(x+y), x+y)<< " "<< max(sum-(x+y), x+y)<< endl;
         }
+        /*
         if (it!=B.begin()){
             y=*(it-1);
             tmpcnt=CountEle(y);
@@ -49,6 +50,7 @@ int main(){
             } else if (ans==sum-2*(x+y)) cnt+=tmpcnt;
         //cout<< "Case 2: "<< ans<< " "<< cnt<< " "<< sum-2*(x+y)<< " "<< tmpcnt<< " "<< min(sum-(x+y), x+y)<< " "<< max(sum-(x+y), x+y)<< endl;
         }
+        */
     }
     cout<< ans<< " "<< (cnt+1)/2;
     return 0;

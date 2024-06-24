@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 #define ll long long
+#define fi first
+#define se second
 using namespace std;
 
 ll n, m, ans=0, X[15];
@@ -8,8 +10,8 @@ vector<ll> A;
 ll cnt=0;
 
 void xuli(){
-    ll tmpans=0, tich;
-    X[0]=X[n]=1;
+    ll tmpans=0;
+    X[0]=1;
     /*
     cout<< ++cnt<< ": "<< A[1];
     for (int i=2; i<=n; i++){
@@ -19,21 +21,24 @@ void xuli(){
     }
     cout<< "\n";
     */
+    stack<pair<int, int>> st;
     for (int i=1; i<=n; i++){
-        if (X[i-1]!=3 && X[i]!=3){
-            if (X[i-1]==1) tmpans=(tmpans+A[i]%m)%m;
-            else if (X[i-1]==2) tmpans=(tmpans-A[i]%m)%m;
-        } else{
-            tich=A[i];
-            if (X[i-1]==2) tich=-A[i];
-            i++;
-            while (i<=n && (X[i-1]==3 && X[i]==3)){
-                tich=(tich*(A[i]%m))%m;
-                i++;
+        if (X[i-1]==3){
+            pair<int, int> tmp;
+            if (!st.empty()){
+                tmp=st.top();
+                st.pop();
+            } else{
+                tmp.fi=1;
+                tmp.se=X[i-1];
             }
-            tich=(tich*(A[i]%m))%m;
-            tmpans+=tich;
-        }
+            st.push({(tmp.fi*(A[i]%m))%m, tmp.se});
+        } else st.push({A[i], X[i-1]});
+    }
+    while (!st.empty()){
+        if (st.top().se==1) tmpans=(tmpans+st.top().fi%m)%m;
+        else tmpans=(tmpans-st.top().fi%m)%m;
+        st.pop();
     }
     //cout<< tmpans<< "\n";
     ans+=tmpans%m==0;
