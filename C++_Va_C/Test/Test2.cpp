@@ -7,8 +7,8 @@
 using namespace std;
 
 int main(){
-    //freopen("text2.inp", "r", stdin);
-    //freopen("text2.out", "w", stdout);
+    //freopen("TEST2.INP", "r", stdin);
+    //freopen("TEST2.OUT", "w", stdout);
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
 
