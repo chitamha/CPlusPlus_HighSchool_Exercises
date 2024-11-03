@@ -2,39 +2,35 @@
 #define ll long long
 using namespace std;
 
-ll n, l, r, L, U, DD[300], ans=0;
-string s;
+ll n, l, r;
+vector<ll> A;
+
+ll process(ll siz){
+    map<ll, ll> mp;
+    ll it1=1, it2=1, ans=0;
+    while (it2<=n){
+        mp[A[it2]]++;
+        while (mp.size()>siz && it1<=it2){
+            if (mp[A[it1]]==1) mp.erase(A[it1]);
+            else mp[A[it1]]--;
+            it1++;
+        }
+        if (mp.size()<=siz) ans+=it2-it1+1;
+        it2++;
+        //cout<< ans<< " "<< it1<< " "<< it2-1<< endl;
+    }
+    return ans;
+}
+
 
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
-    cin>> n>> L>> U;
-    //cin.ignore();
-    ll cnt=0;
-    for (int i=1; i<=n; i++){
-        string x; cin>> x;
-        if (i>=L && i<=U) s+=x;
-        if (i==L) l=cnt+1;
-        cnt+=x.size();
-        if (i==U) r=cnt;
-    }
-    //cout<< s<< " "<< l<< " "<< r<< endl;
-    cnt=0;
-    r=r-l; l=0;
-    while (l<=r){
-        if (!DD[s[l]]){
-            DD[s[l]]=1;
-            cnt++;
-            l++;
-        } else{
-            ans+=(cnt+1)*cnt/2;
-            cnt=1;
-            memset(DD, 0, sizeof DD);
-            DD[s[l]]=1;
-            l++;
-        }
-        cout<< s[l-1]<< " "<< cnt<< " "<< ans<< endl;
-    }
-    cout<< ans+cnt*(cnt+1)/2;
+    cin>> n>> l>> r;
+    A.resize(n+1);
+    for (int i=1; i<=n; i++) cin>> A[i];
+    //cout<< process(r)<< endl;
+    //cout<< process(r)-process(l-1)<< " "<< process(r)<< " "<< process(l-1);
+    cout<< process(r)-process(l-1);
     return 0;
 }
