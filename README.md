@@ -20,7 +20,7 @@
             <br>
             + Đạt giải Nhất HSG Toán 9 tỉnh Đồng Tháp
             <br>
-            + Huy chương Bạc đấu trường Toán Học VioEdu
+            + Huy chương Bạc Đấu trường Toán học VioEdu
             <br>
             - Lớp 11
             <br>
