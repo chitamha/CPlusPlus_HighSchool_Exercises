@@ -3,23 +3,29 @@
 #define se second
 #define llll pair<ll, ll>
 #define ll long long
-#define maxn 1000006
+#define maxn 200006
 using namespace std;
+
+ll n, S, ans=0;
+vector<ll> A;
 
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
-    int F[5][1000], ans=0;
-    memset(F, 0, sizeof F);
-    for (int i=1; i<=4; i++) F[i][1]=1;
-    for (int i=2; i<=7; i++){
-        for (int j=1; j<=4; j++){
-            for (int k=1; k<=4; k++){
-                if (j!=k) F[j][i]+=F[k][i-1];
-            }
+    cin>> n>> S;
+    A.resize(n+5);
+    for (int i=1; i<=n; i++) cin>> A[i];
+    ll l1=1, l2=1, sum=0;
+    while (l2<=n){
+        sum+=A[l2];
+        while (sum>S && l1<=l2){
+            sum-=A[l1];
+            l1++;
         }
+        if (sum==S) ans++;
+        //cout<< l1<< " "<< l2<< endl;
+        l2++;
     }
-    for (int i=1; i<=4; i++) ans+=F[i][7]*3;
     cout<< ans;
     return 0;
 }
