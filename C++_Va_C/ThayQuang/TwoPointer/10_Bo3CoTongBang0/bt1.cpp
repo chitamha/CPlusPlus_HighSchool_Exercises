@@ -1,31 +1,28 @@
-#include <bits/stdc++.h>
-#define ll long long
-using namespace std;
+class Solution {
+public:
+    int n;
+    vector<vector<int>> Ans;
 
-ll n, cnt=0;
-vector<ll> v;
-
-void Count(ll post, ll sum){
-    ll left=0, right=n-1;
-    while (left<post && post<right){
-        if (v[left]+v[right]==sum){
-            cnt++;
-            left++; right--;
-        } else if(v[left]+v[right]<sum) left++;
-        else right--;
+    void Count(int pos, vector<int> v){
+        int left=0, right=n-1;
+        while (left<pos && pos<right){
+            if (v[left]+v[right]==-v[pos]){
+                vector<int> tmp={v[left], v[pos], v[right]};
+                Ans.push_back(tmp);
+                left++;
+            } else if(v[left]+v[right]<-v[pos]) left++;
+            else right--;
+        }
     }
-}
 
-int main(){
-    freopen("ZEROSUM.INP", "r", stdin);
-    freopen("ZEROSUM.OUT", "w", stdout);
-    ios::sync_with_stdio(false);
-    cin.tie(0); cout.tie(0);
-    cin>> n;
-    v.resize(n);
-    for (ll i=0; i<n; i++) cin>> v[i];
-    sort(v.begin(), v.end());
-    for (ll i=0; i<n; i++) Count(i, -v[i]);
-    cout<< cnt;
-    return 0;
-}
+    vector<vector<int>> threeSum(vector<int>& v) {
+        n=v.size();
+        sort(v.begin(), v.end());
+        for (int i=0; i<n; i++) Count(i, v);
+        set<vector<int>> se;
+        for (vector<int> tmp:Ans) se.insert(tmp);
+        Ans.clear();
+        for (vector<int> tmp:se) Ans.push_back(tmp);
+        return Ans;
+    }
+};
