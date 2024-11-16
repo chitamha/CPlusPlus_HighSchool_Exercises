@@ -6,8 +6,8 @@ ll n, cnt=0;
 vector<ll> v;
 
 void Count(ll post, ll sum){
-    ll left=post+1, right=n-1;
-    while (left<right){
+    ll left=0, right=n-1;
+    while (left<post && post<right){
         if (v[left]+v[right]==sum){
             cnt++;
             left++; right--;
@@ -25,9 +25,7 @@ int main(){
     v.resize(n);
     for (ll i=0; i<n; i++) cin>> v[i];
     sort(v.begin(), v.end());
-    for (ll i=0; i<n; i++){
-        Count(i, -v[i]);
-    }
+    for (ll i=0; i<n; i++) Count(i, -v[i]);
     cout<< cnt;
     return 0;
 }
