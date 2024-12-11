@@ -23,8 +23,8 @@ void solution(int so, int x, multiset<int> A){
             cout<< *it<< endl;
         }
     }
-
 }
+
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
