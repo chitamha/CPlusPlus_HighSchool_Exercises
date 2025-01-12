@@ -1,22 +1,31 @@
 #include <bits/stdc++.h>
+#define fi first
+#define se second
+#define llll pair<ll, ll>
+#define ll long long
+#define maxn 100006
 using namespace std;
 
-int n, k;
-vector<int> A;
+ll t, n, k;
+vector<ll> v;
 
 int main(){
-    int t; cin>> t;
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr); cout.tie(nullptr);
+    cin>> t;
     while (t--){
-        cin>> n>> k; A.resize(n+5);
-        deque<int> dq;
-        for (int i=1; i<=n; i++) cin>> A[i];
-        for (int i=1; i<=n; i++){
-            while (!dq.empty() && A[dq.back()]>=A[i]) dq.pop_back();
-            if (dq.front()+k<=i) dq.pop_front();
-            if (i>=k) cout<< A[dq.front()]<< " ";
+        cin>> n>> k;
+        v.resize(n+1);
+        for (ll i=1; i<=n; i++) cin>> v[i];
+        deque<ll> dq;
+        for (ll i=1; i<=n; i++){
+            while (!dq.empty() && v[i]<=v[dq.back()]) dq.pop_back();
+            dq.push_back(i);
+            if (dq.front()<i-k+1) dq.pop_front();
+            if (i>=k) cout<< v[dq.front()]<< " ";
         }
         cout<< endl;
-        A.clear();
+        v.clear();
     }
     return 0;
 }

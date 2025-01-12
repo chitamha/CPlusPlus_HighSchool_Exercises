@@ -5,52 +5,34 @@
 using namespace std;
 
 int n, ans=0;
-vector<pair<int, int>> A;
-multiset<pair<int, int>> v;
+vector<int> A;
 
 int main(){
-    //freopen("TOWER3.INP", "r", stdin);
-    //freopen("TOWER1.OUT", "w", stdout);
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
     cin>> n;
-    for (int i=1; i<=n; i++){
-        int r, h; cin>> r>> h;
-        A.push_back({r, h});
-    }
-    for (int i=A.size()-1; i>=0; i--){
-        auto it=v.upper_bound(A[i]);
-        if (it==v.end()) v.insert(A[i]);
-        else{
-            if ((*it).se==A[i].se){
-                v.erase(it);
-                v.insert(A[i]);
-            } if ((*it).se>A[i].se){
-                pair<int, int> tmp={(*it).fi, (*it).se-A[i].se};
-                v.erase(it);
-                v.insert(tmp);
-                v.insert(A[i]);
-            } else{
-                int sum=0, cnt=0;
-                auto en=it;
-                while (sum<=A[i].se && en!=v.end()){
-                    sum+=(*en).se;
-                    en++; cnt++;
-                }
-                int check=1?0:en==v.end();
-                for (int j=1; j<=cnt-1; j++) v.erase(it);
-                if (check==0){
-                    pair<int, int> tmp={(*it).fi, sum-A[i].se};
-                    v.erase(it);
-                    if (tmp.se>0) v.insert(tmp);
-                }
-                v.insert(A[i]);
+    A.resize(n+5);
+    for (int i=1; i<=n; i++) cin>> A[i];
+    int l=1, r=n, k;
+    while (l<=r){
+        k=(l+r)/2;
+        deque<int> dq;
+        int check=0;
+        for (int i=1; i<=n; i++){
+            while (!dq.empty() && A[i]<=A[dq.back()]) dq.pop_back();
+            dq.push_back(i);
+            if (dq.front()<=i-k) dq.pop_front();
+            if (i>=k && A[dq.front()]>=k){
+                ans=max(ans, k);
+                l=k+1;
+                check=1;
+                break;
             }
         }
+        if (check==0) r=k-1;
+        dq.clear();
+        //cout<< k<< " "<< ans<< endl;
     }
-    //cout<< "Here"<< endl;
-    //for (auto x:v) cout<< x.fi<< " "<< x.se<< endl;
-    for (auto x:v) ans+=x.se;
     cout<< ans;
     return 0;
 }
