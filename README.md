@@ -28,6 +28,10 @@
             <br>
             + Đạt giải Nhì HSG Tin Học 12 tỉnh Đồng Tháp
             <br>
+            - Lớp 12
+            <br>
+            + Đạt giải Nhất HSG Tin Học 12 trường THPT Lấp Vò 1
+            <br>
         </p>
     </body>
 </html>
