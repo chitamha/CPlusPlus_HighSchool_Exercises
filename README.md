@@ -10,15 +10,15 @@ Mình xin cảm ơn bạn vì đã đọc đến đây và mình muốn nói r�
 
 <h3>Lớp 9</h3>
 
-1. Đạt giải Nhì HSG Toán 9 huyện Lấp Vò
-2. Đạt giải Nhất HSG Toán 9 tỉnh Đồng Tháp
-3. Huy chương Bạc Đấu trường Toán học VioEdu
+- Đạt giải Nhì HSG Toán 9 huyện Lấp Vò
+- Đạt giải Nhất HSG Toán 9 tỉnh Đồng Tháp
+- Huy chương Bạc Đấu trường Toán học VioEdu
    
 <h3>Lớp 11</h3>
 
-1. Đạt giải Nhì HSG Tin Học 12 trường THPT Lấp Vò 1
-2. Đạt giải Nhì HSG Tin Học 12 tỉnh Đồng Tháp
+- Đạt giải Nhì HSG Tin Học 12 trường THPT Lấp Vò 1
+- Đạt giải Nhì HSG Tin Học 12 tỉnh Đồng Tháp
    
 <h3>Lớp 12</h3>
 
-1. Đạt giải Nhất HSG Tin Học 12 trường THPT Lấp Vò 1
+- Đạt giải Nhất HSG Tin Học 12 trường THPT Lấp Vò 1
