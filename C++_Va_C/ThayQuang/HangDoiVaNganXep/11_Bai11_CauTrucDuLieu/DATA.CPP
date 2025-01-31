@@ -31,16 +31,15 @@ void process(){
             if (Tv[i].se!=dq.front() && Tv[i].se!=dq.back()) Abi[1]=Abi[2]=0;
             if (previous<Tv[i].se) Abi[3]=0;
             if (dq.size()>=2){
-                if (Tv[i].se==dq.front()){
+                if (Tv[i].se==dq.front() && Tv[i].se!=dq.back()){
                     Abi[1]=0;
                     dq.pop_front();
                 }
-                else {
+                else if (Tv[i].se!=dq.front() && Tv[i].se==dq.back()){
                     Abi[2]=0;
                     dq.pop_back();
                 }
-            }
-            else dq.pop_back();
+            } else dq.pop_back();
             previous=Tv[i].se;
             if (dq.empty()) previous=1e9;
             mse.erase(mse.find(Tv[i].se));
