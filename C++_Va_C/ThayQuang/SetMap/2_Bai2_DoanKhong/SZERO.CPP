@@ -14,12 +14,13 @@ int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
     cin>> n;
+    mp[0]=0;
     for (int i=1; i<=n; i++){
         int x; cin>> x;
         sum+=x;
         if (mp.count(sum)==0) mp[sum]=i;
         else {
-            if (i-mp[sum]+1>ans){
+            if (i-mp[sum]>ans){
                 l=mp[sum]+1;
                 r=i;
             }
