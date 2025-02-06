@@ -4,7 +4,7 @@
 #define ll long long
 using namespace std;
 
-int n, ans=0, l, r;
+int n, l=0, r=0;
 ll sum=0;
 map<ll, int> mp;
 
@@ -20,7 +20,7 @@ int main(){
         sum+=x;
         if (mp.count(sum)==0) mp[sum]=i;
         else {
-            if (i-mp[sum]>ans){
+            if (i-mp[sum]>=r-l+1){
                 l=mp[sum]+1;
                 r=i;
             }

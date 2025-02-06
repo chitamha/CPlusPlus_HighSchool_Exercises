@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 #define fi first
 #define se second
+#define ll long long
 using namespace std;
 
 int n, cnt=0;
@@ -35,8 +36,8 @@ int main(){
         }
         if ((cnt==1 && nd.se<4) || cnt==0) cout<< -1<< endl;
         else {
-            if (nd.se>=4) cout<< nd.fi*nd.fi<< endl;
-            else cout<< st.fi*nd.fi<< endl;
+            if (nd.se>=4) cout<< (ll)nd.fi*nd.fi<< endl;
+            else cout<< (ll)st.fi*nd.fi<< endl;
         }
         cnt=0; mp.clear();
     }
