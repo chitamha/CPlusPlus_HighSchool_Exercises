@@ -4,7 +4,7 @@
 #define se second
 using namespace std;
 
-ll n, m, k, Thia[200005], Dua[200005];
+ll n, m, k, Thia[20000005], Dua[20000005];
 priority_queue<ll, vector<ll>, greater<ll>> pq;
 
 int main(){
@@ -21,24 +21,24 @@ int main(){
             Thia[pq.top()]=0; Dua[pq.top()]=0;
             pq.pop();
         }
-        //cout<< "n: "<< n<< "; m: "<< m<< endl;
+        //cout<< "n: "<< n<< "; m: "<< m<< "\n";
         if (a==0){
             if (n>=1){
-                cout<< "Yes"<< endl;
+                cout<< "Yes"<< "\n";
                 n--;
                 Thia[t+d]++;
                 pq.push(t+d);
-            } else cout<< "No"<< endl;
+            } else cout<< "No"<< "\n";
         }
         else{
             if (n>=1 && m>=1){
-                cout<< "Yes"<< endl;
+                cout<< "Yes"<< "\n";
                 n--; m--;
                 Thia[t+d]++; Dua[t+d]++;
                 pq.push(t+d);
-            } else cout<< "No"<< endl;
+            } else cout<< "No"<< "\n";
         }
     }
-    //cout<< "n: "<< n<< "; m: "<< m<< endl;
+    //cout<< "n: "<< n<< "; m: "<< m<< "\n";
     return 0;
 }
