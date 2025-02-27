@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
 #define ll long long
+#define MOD 5000000
 using namespace std;
 
 ll n, k, ans=0, A[10005], Bit[10005][55];
-ll MOD=500000000;
 //Mod thêm trong hàm update, get mới AC
 //Không thì 9/11
 
