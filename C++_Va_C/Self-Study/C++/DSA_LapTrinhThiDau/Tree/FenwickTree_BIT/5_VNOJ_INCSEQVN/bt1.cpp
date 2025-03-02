@@ -3,7 +3,7 @@
 #define MOD 5000000
 using namespace std;
 
-ll n, k, ans=0, A[10005], Bit[10005][55];
+ll n, k, A[10005], Bit[10005][55];
 //Mod thêm trong hàm update, get mới AC
 //Không thì 9/11
 
@@ -31,8 +31,11 @@ int main(){
         update(A[i], 1, 1);
         for (ll j=2; j<=k; j++)
             update(A[i], get(A[i]-1, j-1), j);
-        ans=(ans+get(A[i]-1, k-1))%MOD;
+        //ans+get(A[i]-1, k-1) khác với ans+get(A[i], k)
+        //F[i][j]: số dãy tăng dần có độ dài j và kết thúc tại A[i]
+        //F[i][k] = get(A[i]-1, k-1)
+        //Tổng của F[m][k] = get(A[i], k) với A[m]<=A[i]
     }
-    cout<< ans;
+    cout<< get(n, k);
     return 0;
 }
