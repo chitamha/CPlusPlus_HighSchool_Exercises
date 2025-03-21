@@ -13,13 +13,13 @@ void dijkstra(int x){
     d[x]=0;
     pq.push({0, x});
     while (!pq.empty()){
-        int u=pq.top().se, w=pq.top().fi;
+        int u=pq.top().se, dis=pq.top().fi;
         pq.pop();
-        if (w>d[u]) continue;
+        if (dis>d[u]) continue;
         for (ii p:adj[u]){
             int v=p.fi, w=p.se;
-            if (d[v]>max(d[u], w)){
-                d[v]=max(d[u], w);
+            if (d[v]>max(dis, w)){
+                d[v]=max(dis, w);
                 pq.push({d[v], v});
             }
         }
