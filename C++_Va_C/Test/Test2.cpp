@@ -3,7 +3,6 @@
 #define se second
 #define llll pair<ll, ll>
 #define ll long long
-#define maxn 1000005
 using namespace std;
 
 int main(){
