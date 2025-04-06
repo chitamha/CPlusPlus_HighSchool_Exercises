@@ -5,10 +5,11 @@
 #define llll pair<ll, ll>
 using namespace std;
 
-ll n, m, s, f, d[105], before[105], disst, disnd=1e18;
-vector<llll> adj[105];
+ll n, m, s, f, d[50005], before[50005], inpq[50005], disst, disnd;
+set<llll> adj[50005];
 
-void Dijkstra(ll x, ll a, ll b){
+void Dijkstra(ll x){
+    memset(d, 62, sizeof d);
     priority_queue<llll, vector<llll>, greater<llll>> pq;
     d[x]=0;
     pq.push({0, x});
@@ -19,11 +20,36 @@ void Dijkstra(ll x, ll a, ll b){
         if (dis>d[u]) continue;
         for (llll p:adj[u]){
             ll v=p.fi, w=p.se;
-            if ((u==a && v==b) || (u==b && v==a)) continue;
             if (d[v]>d[u]+w){
                 d[v]=d[u]+w;
                 pq.push({d[v], v});
                 before[v]=u;
+            }
+        }
+    }
+}
+
+void BellmanFord(ll x){
+    memset(d, 62, sizeof d);
+    memset(before, 0, sizeof before);
+    priority_queue<llll, vector<llll>, greater<llll>> pq;
+    before[x]=x;
+    d[x]=0;
+    pq.push({0, x});
+    inpq[x]=1;
+    while (!pq.empty()){
+        ll u=pq.top().se;
+        pq.pop();
+        inpq[u]=0;
+        for (llll p:adj[u]){
+            ll v=p.fi, w=p.se;
+            if (d[v]>d[u]+w){
+                before[v]=u;
+                d[v]=d[u]+w;
+                if (inpq[v]==0){
+                    pq.push({d[v], v});
+                    inpq[v]=1;
+                }
             }
         }
     }
@@ -37,37 +63,35 @@ int main(){
     cin>> n>> m>> s>> f;
     for (ll i=1; i<=m; i++){
         ll u, v, w; cin>> u>> v>> w;
-        adj[u].push_back({v, w});
-        adj[v].push_back({u, w});
+        adj[u].insert({v, w});
+        adj[v].insert({u, w});
     }
-    memset(d, 62, sizeof d);
-    Dijkstra(s, 0, 0);
+    Dijkstra(s);
     if (before[f]==0) return cout<< -1, 0;
     disst=d[f];
     vector<ll> Trace, SecondTrace;
     ll en=f;
-    while (before[en]!=en){
-        Trace.push_back(en);
-        en=before[en];
-    }
     Trace.push_back(en);
-    reverse(Trace.begin(), Trace.end());
-    for (ll i=0; i<Trace.size()-1; i++){
-        memset(d, 62, sizeof d);
-        memset(before, 0, sizeof before);
-        Dijkstra(s, Trace[i], Trace[i+1]);
-        if (d[f]<disnd){
-            disnd=d[f];
-            en=f;
-            while (before[en]!=en){
-                SecondTrace.push_back(en);
-                en=before[en];
-            }
-        }
+    while (en!=s){
+        adj[en].erase(adj[en].lower_bound(make_pair(before[en], 0)));
+        auto it=adj[before[en]].lower_bound(make_pair(en, 0));
+        int tmp=(*it).se;
+        adj[before[en]].erase(adj[before[en]].lower_bound(make_pair(en, 0)));
+        adj[before[en]].insert({en, -tmp});
+        en=before[en];
+        Trace.push_back(en);
     }
-    if (before[f]==0) return cout<< -1, 0;
+    reverse(Trace.begin(), Trace.end());
+    BellmanFord(f);
+    //Dijkstra(f); TLE, Chu trinh am?
+    if (before[s]==0) return cout<< -1, 0;
+    disnd=d[s];
+    en=s;
     SecondTrace.push_back(en);
-    reverse(SecondTrace.begin(), SecondTrace.end());
+    while (en!=f){
+        en=before[en];
+        SecondTrace.push_back(en);
+    }
     cout<< disst+disnd<< endl;
     cout<< Trace.size()<< " ";
     for (ll x:Trace) cout<< x<< " ";
