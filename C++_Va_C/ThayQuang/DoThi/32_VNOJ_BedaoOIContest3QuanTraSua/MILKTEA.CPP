@@ -5,23 +5,42 @@
 #define llll pair<ll, ll>
 using namespace std;
 
-ll n, m, k, d[100005], RealDis[100005];
+ll n, m, k, NorDis[100005], ShopDis[100005], Shop[100005], origin[100005];
 vector<llll> adj[100005];
-vector<llll> Shop;
 
-void Dijkstra(ll x){
+void Dijkstra(){
+    memset(NorDis, 62, sizeof NorDis);
+    memset(ShopDis, 62, sizeof ShopDis);
+    //NorDis: chi phí ngắn nhất để từ một tiệm trà sữa bất kì đến i
+    //ShopDis: chi phí ngắn nhất để từ một tiệm trà sữa bất kì đến một tiệm trà sữa i
     priority_queue<llll, vector<llll>, greater<llll>> pq;
-    d[x]=0;
-    pq.push({0, x});
+    for (int i=1; i<=n; i++){
+        if (Shop[i]){
+            NorDis[i]=0;
+            pq.push({0, i});
+            origin[i]=i;
+        }
+    }
     while (!pq.empty()){
         ll u=pq.top().se, dis=pq.top().fi;
         pq.pop();
-        if (dis>d[u]) continue;
+        if (dis>NorDis[u]) continue;
         for (llll p:adj[u]){
             ll v=p.fi, w=p.se;
-            if (d[v]>d[u]+w){
-                d[v]=d[u]+w;
-                pq.push({d[v], v});
+            if (NorDis[v]>NorDis[u]+w){
+                NorDis[v]=NorDis[u]+w;
+                pq.push({NorDis[v], v});
+                origin[v]=origin[u];
+            }
+            else{
+                //NorDis[u], NorDis[v] đã tối ưu và cạnh (u, v) đã không sử dụng khi tìm Min NorDis[v]
+                //CẬP NHẬT SHOPDIS 2 NGUỒN
+                //Cập nhật ShopDis của origin[u] và origin[v] nếu hai nguồn khác nhau
+                //và hai nguồn (origin[u] và origin[v]) đã xác định
+                if (origin[u]!=origin[v] && origin[u] && origin[v]){
+                    ShopDis[origin[u]]=min(ShopDis[origin[u]], NorDis[u]+NorDis[v]+w);
+                    ShopDis[origin[v]]=min(ShopDis[origin[v]], NorDis[u]+NorDis[v]+w);
+                }
             }
         }
     }
@@ -40,18 +59,12 @@ int main(){
     }
     for (ll i=1; i<=k; i++){
         ll p, t; cin>> p>> t;
-        Shop.push_back({p, t});
+        Shop[p]=t+1;
     }
-    memset(RealDis, 62, sizeof RealDis);
-    for (ll i=0; i<k; i++){
-        memset(d, 62, sizeof d);
-        Dijkstra(Shop[i].fi);
-        for (ll j=1; j<=n; j++){
-            if (j==Shop[i].fi){
-                if (Shop[i].se==0) RealDis[j]=0;
-            } else RealDis[j]=min(RealDis[j], d[j]);
-        }
+    Dijkstra();
+    for (int i=1; i<=n; i++){
+        if (Shop[i]==2) cout<< ShopDis[i]<< " ";
+        else cout<< NorDis[i]<< " ";
     }
-    for (ll i=1; i<=n; i++) cout<< RealDis[i]<< " ";
     return 0;
 }

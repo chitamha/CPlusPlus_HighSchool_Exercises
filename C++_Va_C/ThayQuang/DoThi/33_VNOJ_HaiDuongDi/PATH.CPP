@@ -7,6 +7,11 @@ using namespace std;
 
 ll n, m, s, f, d[50005], before[50005], inpq[50005], disst, disnd;
 set<llll> adj[50005];
+map<llll, ll> visited;
+
+void Erase(ll u, ll v){
+    adj[u].erase(adj[u].lower_bound(make_pair(v, -1e18)));
+}
 
 void Dijkstra(ll x){
     memset(d, 62, sizeof d);
@@ -26,6 +31,19 @@ void Dijkstra(ll x){
                 before[v]=u;
             }
         }
+    }
+    for (ll en=f; before[en]!=en; en=before[en]){
+        visited[{en, before[en]}]++;
+        visited[{before[en], en}]++;
+        Erase(en, before[en]);
+        auto it=adj[before[en]].lower_bound(make_pair(en, 0));
+        ll tmp=(*it).se;
+        Erase(before[en], en);
+        adj[before[en]].insert({en, -tmp});
+        //HIWAY2
+        //Thay -tmp thành 1e18 thì WA 2 Test
+        //Xóa cạnh (xóa cả hai chiều) thì WA 2 Test
+        //Thay đổi [u; v]=1e18 và [v; u]=1e18 thì WA 2 Test
     }
 }
 
@@ -53,6 +71,27 @@ void BellmanFord(ll x){
             }
         }
     }
+    for (ll en=s; before[en]!=en; en=before[en]){
+        visited[{en, before[en]}]++;
+        visited[{before[en], en}]++;
+        Erase(before[en], en);
+    }
+}
+
+void TruyVet(ll u, vector<ll> Trace){
+    Trace.push_back(u);
+    if (u==f){
+        cout<< Trace.size()<< " ";
+        for (ll x:Trace) cout<< x<< " ";
+        cout<< endl;
+        return;
+    }
+    else{
+        for (pair<ll,ll> p:adj[u]){
+            ll v=p.fi;
+            if (visited[{u, v}]==1 && visited[{v, u}]==1) TruyVet(v, Trace);
+        }
+    }
 }
 
 int main(){
@@ -69,34 +108,12 @@ int main(){
     Dijkstra(s);
     if (before[f]==0) return cout<< -1, 0;
     disst=d[f];
-    vector<ll> Trace, SecondTrace;
-    ll en=f;
-    Trace.push_back(en);
-    while (en!=s){
-        adj[en].erase(adj[en].lower_bound(make_pair(before[en], 0)));
-        auto it=adj[before[en]].lower_bound(make_pair(en, 0));
-        int tmp=(*it).se;
-        adj[before[en]].erase(adj[before[en]].lower_bound(make_pair(en, 0)));
-        adj[before[en]].insert({en, -tmp});
-        en=before[en];
-        Trace.push_back(en);
-    }
-    reverse(Trace.begin(), Trace.end());
     BellmanFord(f);
     //Dijkstra(f); TLE, Chu trinh am?
     if (before[s]==0) return cout<< -1, 0;
     disnd=d[s];
-    en=s;
-    SecondTrace.push_back(en);
-    while (en!=f){
-        en=before[en];
-        SecondTrace.push_back(en);
-    }
     cout<< disst+disnd<< endl;
-    cout<< Trace.size()<< " ";
-    for (ll x:Trace) cout<< x<< " ";
-    cout<< endl;
-    cout<< SecondTrace.size()<< " ";
-    for (ll x:SecondTrace) cout<< x<< " ";
+    vector<ll> Trace;
+    TruyVet(s, Trace);
     return 0;
 }
