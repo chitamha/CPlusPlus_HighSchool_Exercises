@@ -16,25 +16,7 @@ void DFS(int u){
             DFS(p.fi);
     }
     Topo[cnt--]=u;
-}
-
-void Dijkstra(){
-    fill(d+1, d+n+1, 2e9);
-    priority_queue<ill, vector<ill>, greater<ill>> pq;
-    d[s]=0;
-    pq.push({0, s});
-    while (!pq.empty()){
-        int u=pq.top().se; ll dis=pq.top().fi;
-        pq.pop();
-        if (dis>d[u]) continue;
-        for (ill p:adj[u]){
-            int v=p.fi, w=p.se;
-            if (d[v]>d[u]+w){
-                d[v]=d[u]+w;
-                pq.push({d[v], v});
-            }
-        }
-    }
+    //Duyệt xong càng sớm thì ở càng cuối
 }
 
 int main(){
@@ -47,12 +29,21 @@ int main(){
     for (int i=1; i<=m; i++){
         int a, b, c;
         cin>> a>> b>> c;
-        adj[a].push_back({b, -c});
+        adj[a].push_back({b, c});
     }
-    Dijkstra();
-    if (d[t]==2e9) cout<< "NO PATH"<< endl;
-    else cout<< -d[t]<< endl;
     for (int i=1; i<=n; i++) if (color[i]==0) DFS(i);
+    fill(d+1, d+n+1, -2e9);
+    d[s]=0;
+    for (int i=1; i<=n; i++){
+        int u=Topo[i];
+        //if (d[u]==-2e9) continue;
+        for (ill p:adj[u]){
+            int v=p.fi, w=p.se;
+            d[v]=max(d[v], d[u]+w);
+        }
+    }
+    if (d[t]==-2e9) cout<< "NO PATH"<< endl;
+    else cout<< d[t]<< endl;
     F[s]=1;
     for (int i=1; i<=n; i++){
         int u=Topo[i];
