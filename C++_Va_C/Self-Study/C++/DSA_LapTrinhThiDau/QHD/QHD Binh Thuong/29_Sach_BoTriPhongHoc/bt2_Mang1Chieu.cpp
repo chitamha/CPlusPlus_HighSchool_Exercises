@@ -14,14 +14,12 @@ int main(){
         for (int i=1; i<=n; i++) sum+=abs(hs[i]-ph[i]);
         return cout<< sum, 0;
     }
-    int cnt=1;
+    memset(F, 62, sizeof F);
+    F[1]=abs(hs[1]-ph[1]);
     for (int j=1; j<=n; j++){
-        for (int i=cnt; i>=1; i--){
-            if (i==j) F[i]=F[i-1]+abs(hs[i]-ph[j]);
-            else F[i]=min(F[i], F[i-1]+abs(hs[i]-ph[j]));
-            //cout<< "("<< i<< ";"<< j<< ") : "<< F[i]<< endl;
+        for (int i=min(j, k); i>=1; i--){
+            F[i]=min(F[i], F[i-1]+abs(hs[i]-ph[j]));
         }
-        if (cnt+1<=k) cnt++;
     }
     cout<< F[k];
     return 0;
