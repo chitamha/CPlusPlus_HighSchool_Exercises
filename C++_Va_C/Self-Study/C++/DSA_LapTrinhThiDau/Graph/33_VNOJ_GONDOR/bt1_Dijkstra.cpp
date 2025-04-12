@@ -25,17 +25,18 @@ void dijkstra(){
         double kc=pq.top().fi;
         pq.pop();
         if (kc>d[u]) continue;
-        visited[u]=1;
+        int cnt=0;
         for (int v:adj[u]){
-            if (s[u]==0) break;
-            if (visited[v]==1) continue;
-            s[u]--;
+            if (cnt>=s[u]) break;
+            //if (visited[v]==1) continue;
             double tmpdis=dis(u, v);
+            if (d[v]>d[u]) cnt++;
             if (d[v]>d[u]+tmpdis){
                 d[v]=d[u]+tmpdis;
                 pq.push({d[v], v});
             }
         }
+        //visited[u]=1;
     }
 }
 
