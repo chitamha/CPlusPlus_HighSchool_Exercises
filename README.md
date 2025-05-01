@@ -22,3 +22,4 @@ Mình xin cảm ơn bạn vì đã đọc đến đây và mình muốn nói r�
 <h3>Lớp 12</h3>
 
 - Đạt giải Nhất HSG Tin Học 12 trường THPT Lấp Vò 1
+- Đạt giải Nhì HSG Tin Học 12 tỉnh Đồng Tháp
