@@ -8,8 +8,8 @@ using namespace std;
 int n, m, Cost[105][105], F[105][105], before[105][105], Cast[105];
 
 int main(){
-    //freopen("messages.inp", "r", stdin);
-    //freopen("messages.out", "w", stdout);
+    freopen("messages.inp", "r", stdin);
+    freopen("messages.out", "w", stdout);
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
 
