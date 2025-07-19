@@ -1,4 +1,3 @@
-<h1>#CPlusPlus_High_School_Exercises</h1>
 
 <h2>Chút tâm sự</h2>
 
