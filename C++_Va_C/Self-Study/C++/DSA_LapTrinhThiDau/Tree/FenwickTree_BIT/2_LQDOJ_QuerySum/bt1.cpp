@@ -7,7 +7,7 @@ ll BIT[1000005];
 
 void update(int pos, int val){
     for (; pos<=n; pos+=pos&(-pos)) BIT[pos]+=val;
-    //pos&(-pos): vị trí số 1 cuối cùng (số 1 đầu tiên tính từ phải sang trái)
+    //pos&(-pos): vị trí số 1 đầu tiên tính từ phải sang trái
 }
 
 ll get(int pos){
