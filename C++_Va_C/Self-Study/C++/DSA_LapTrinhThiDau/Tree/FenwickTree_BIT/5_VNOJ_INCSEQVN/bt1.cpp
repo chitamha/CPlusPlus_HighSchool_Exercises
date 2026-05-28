@@ -31,10 +31,10 @@ int main(){
         update(A[i], 1, 1);
         for (ll j=2; j<=k; j++)
             update(A[i], get(A[i]-1, j-1), j);
-        //ans+get(A[i]-1, k-1) khác với ans+get(A[i], k)
-        //F[i][j]: số dãy tăng dần có độ dài j và kết thúc tại A[i]
-        //F[i][k] = get(A[i]-1, k-1)
-        //Tổng của F[m][k] = get(A[i], k) với A[m]<=A[i]
+        // ans+get(A[i]-1, k-1) khác với ans+get(A[i], k)
+        // F[i][j]: số dãy tăng dần có độ dài j và kết thúc tại A[i]
+        // F[i][k] = get(A[i]-1, k-1)
+        // Tổng của F[m][k] = get(A[i], k) với A[m]<=A[i]
     }
     cout<< get(n, k);
     return 0;
